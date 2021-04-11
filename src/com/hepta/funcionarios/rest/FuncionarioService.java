@@ -51,8 +51,15 @@ public class FuncionarioService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@POST
-	public Response FuncionarioCreate(Funcionario Funcionario) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+	public Response funcionarioCreate(Funcionario funcionario) {
+		try {
+			dao.save(funcionario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return Response.status(Status.OK).build();
 	}
 
 	/**
@@ -63,7 +70,7 @@ public class FuncionarioService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	public Response FuncionarioRead() {
+	public Response funcionarioRead() {
 		List<Funcionario> Funcionarios = new ArrayList<>();
 		try {
 			Funcionarios = dao.getAll();
@@ -87,8 +94,16 @@ public class FuncionarioService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@PUT
-	public Response FuncionarioUpdate(@PathParam("id") Integer id, Funcionario Funcionario) {
-		return Response.status(Status.NOT_IMPLEMENTED).build();
+	public Response funcionarioUpdate(@PathParam("id") Integer id, Funcionario funcionario) {
+		try {
+			Funcionario funcionarioAntigo = dao.find(id);
+			funcionario.setId(funcionarioAntigo.getId());		
+			dao.update(funcionario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Response.status(Status.OK).build();
 	}
 
 	/**
@@ -101,6 +116,12 @@ public class FuncionarioService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@DELETE
 	public Response FuncionarioDelete(@PathParam("id") Integer id) {
+		try {
+			dao.delete(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return Response.status(Status.NOT_IMPLEMENTED).build();
 	}
 

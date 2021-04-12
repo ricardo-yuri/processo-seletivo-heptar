@@ -115,7 +115,7 @@ public class FuncionarioService {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@DELETE
-	public Response FuncionarioDelete(@PathParam("id") Integer id) {
+	public Response funcionarioDelete(@PathParam("id") Integer id) {
 		try {
 			dao.delete(id);
 		} catch (Exception e) {
